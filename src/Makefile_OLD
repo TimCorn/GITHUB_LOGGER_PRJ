@@ -1,0 +1,35 @@
+
+CPP = -std=c++11
+#CPP = -std=gnu++11
+
+DEBUG = -ggdb3 
+
+#LIBS = -lboost_system -lboost_thread -lpthread 
+
+LIBS = -lLogger -lpthread -lboost_filesystem -lboost_system
+
+#LPATH = $(realpath .)
+
+
+goal:
+#	g++  some_vars.cpp  uds_stream_server.cpp  remote-runnerd.cpp  $(CPP)  $(DEBUG) $(LIB_SERVER)  -o  remote-runnerd
+#	g++  SClient.cpp  $(LIB_CLIENT)  -o SClient
+#	echo "$(LPATH)"
+
+	g++  -fPIC  -c Logger.cpp  $(CPP)  $(DEBUG) $(LIBS)  -o  Logger.o
+	g++  -shared -o libLogger.so  Logger.o
+	
+	g++  main_test.cpp  $(CPP)  $(DEBUG) -L. $(LIBS)  -o  main_test
+
+
+clean:
+	rm  -f  libLogger.so
+	rm -f   main_test
+	rm -f   *.o
+	
+
+	
+
+
+
+
